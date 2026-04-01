@@ -28,6 +28,8 @@ module SHIFTREG (dOut,dIn,sIn,clk,ld,clr,sft);
     always @(posedge clk)
         begin
             if (clr)
+                dOut <= 0;
+            else if (ld)
                 dOut <= dIn;
             else if (sft)
                 dOut <= {sIn,dOut[15:1]};

@@ -26,7 +26,7 @@ module CONTROLPATH (ldA, clrA, sftA, ldQ, clrQ, sftQ, ldM, clrff, addSub, start,
     
     reg [2:0] state;
     
-   parameter S0 = 3'b000, S1 = 3'b001, S2 = 3'b010, S3 = 3'b001, S4 = 3'b100, S5 = 3'b101, S6 = 3'b110;
+   parameter S0 = 3'b000, S1 = 3'b001, S2 = 3'b010, S3 = 3'b011, S4 = 3'b100, S5 = 3'b101, S6 = 3'b110;
    
    always @(posedge clk)
        begin
@@ -40,6 +40,7 @@ module CONTROLPATH (ldA, clrA, sftA, ldQ, clrQ, sftQ, ldM, clrff, addSub, start,
                        state <= S4;
                    else
                        state <= S5;
+               S3: state <= S5;
                S4: state <= S5;
                S5: if (({q0,qm1} == 2'b01) && !eqz)
                        state <= S3;
@@ -69,7 +70,7 @@ module CONTROLPATH (ldA, clrA, sftA, ldQ, clrQ, sftQ, ldM, clrff, addSub, start,
                S1: begin
                        clrA = 1;
                        clrff = 1;
-                       ldCnt = 0;
+                       ldCnt = 1;
                        ldM = 1;
                    end
                S2: begin
@@ -104,9 +105,16 @@ module CONTROLPATH (ldA, clrA, sftA, ldQ, clrQ, sftQ, ldM, clrff, addSub, start,
                S6: done = 1'b1;
                default: begin
                        clrA = 0;
+                       ldA = 0;
                        sftA = 0;
+                       clrQ = 0;
                        ldQ = 0;
                        sftQ = 0;
+                       ldM = 0;
+                       clrff = 0;
+                       addSub = 0;
+                       decr = 0;
+                       ldCnt = 0;
                        done = 1'b0; 
                    end
            endcase

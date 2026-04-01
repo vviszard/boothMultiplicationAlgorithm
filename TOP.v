@@ -29,7 +29,7 @@ module TOP (product,done,dIn,clk,start);
     wire ldA,clrA,sftA,ldQ,clrQ,sftQ,ldM,clrff,addSub,decCnt,ldCnt,qm1,eqz,q0;
     wire [15:0] AVal,QVal;
     
-    CONTROLPATH CP (.ldA(lda), .clrA(clrA), .sftA(sftA), .ldQ(ldQ), .clrQ(clrQ), .sftQ(sftQ), .ldM(ldM), .clrff(clrff), .addSub(addSub), .start(start), .decr(decr), .ldCnt(ldCnt), .done(done), .clk(clk), .q0(QVal[0]), .qm1(qm1), .eqz(eqz));
+    CONTROLPATH CP (.ldA(ldA), .clrA(clrA), .sftA(sftA), .ldQ(ldQ), .clrQ(clrQ), .sftQ(sftQ), .ldM(ldM), .clrff(clrff), .addSub(addSub), .start(start), .decr(decCnt), .ldCnt(ldCnt), .done(done), .clk(clk), .q0(QVal[0]), .qm1(qm1), .eqz(eqz));
     DATAPATH DP (.ldA(ldA), .ldQ(ldQ), .ldM(ldM), .clrA(clrA), .clrQ(clrQ), .clrff(clrff), .sftA(sftA), .sftQ(sftQ), .addSub(addSub), .decCnt(decCnt), .ldCnt(ldCnt), .dIn(dIn), .clk(clk), .qm1(qm1), .eqz(eqz), .AOut(AVal), .QOut(QVal));
     
     assign product = {AVal,QVal};

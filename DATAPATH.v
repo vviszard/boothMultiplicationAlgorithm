@@ -33,7 +33,7 @@ module DATAPATH(ldA,ldQ,ldM,clrA,clrQ,clrff,sftA,sftQ,addSub,decCnt,ldCnt,dIn,cl
     SHIFTREG AR (.dOut(A), .dIn(Z), .sIn(A[15]), .clk(clk), .ld(ldA), .clr(clrA), .sft(sftA));
     SHIFTREG QR (.dOut(Q), .dIn(dIn), .sIn(A[0]) , .clk(clk), .ld(ldQ), .clr(clrQ), .sft(sftQ));
     DFLPOP FF (.d(Q[0]), .q(qm1), .clk(clk) , .clr(clrff));
-    PIPO MR (.dOut(M), .dIn(M), .clk(clk), .ld(ldM));
+    PIPO MR (.dOut(M), .dIn(dIn), .clk(clk), .ld(ldM));
     ALU ADSB (.out(Z), .in1(A), .in2(M), .addSub(addSub));
     COUNTER CN (.dOut(count), .dec(decCnt), .ld(ldCnt), .clk(clk));
     
