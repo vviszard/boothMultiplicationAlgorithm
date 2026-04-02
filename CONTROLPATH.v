@@ -42,13 +42,19 @@ module CONTROLPATH (ldA, clrA, sftA, ldQ, clrQ, sftQ, ldM, clrff, addSub, start,
                        state <= S5;
                S3: state <= S5;
                S4: state <= S5;
-               S5: if (({q0,qm1} == 2'b01) && !eqz)
+               S5: if (eqz)
+                       state <= S6;
+                   else if ({q0,qm1} == 2'b01)
                        state <= S3;
-                   else if (({q0,qm1} == 2'b10) && !eqz)
+                   else if ({q0,qm1} == 2'b10)
                        state <= S4;
                    else
+                       state <= S5;
+               S6: if (start)
+                       state <= S0;
+                   else 
                        state <= S6;
-               S6: state <= S6;
+                       
                default: state <= S0;
            endcase
        end

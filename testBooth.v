@@ -45,7 +45,7 @@ module testBooth();
             start = 1;
             #10 start = 0;
             
-            #10 dIn = 16'd5;
+            #15 dIn = 16'd5;
             
             wait(done);
             
@@ -62,7 +62,7 @@ module testBooth();
             start = 1;
             #10 start = 0;
             
-            #10 dIn = 16'd3;
+            #15 dIn = 16'd3;
             
             wait(done);
             
