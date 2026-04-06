@@ -106,26 +106,17 @@ The 32-bit product is formed by concatenating `{AR, QR}` and is held stable in S
 *Resource mapping on the FPGA, showing LUT and Flip-Flop count.*
 
 ---
+## Related Work
 
-## File Structure
+This project is the third in a series of multiplier implementations,
+each building on the previous:
 
-```
-boothMultiplier/
-├── src/
-│   ├── ALU.v
-│   ├── CONTROLPATH.v
-│   ├── COUNTER.v
-│   ├── DATAPATH.v
-│   ├── DFLPOP.v
-│   ├── PIPO.v
-│   ├── SHIFTREG.v
-│   └── TOP.v
-├── sim/
-│   └── testBooth.v
-├── reports/
-│   ├── simulation.png
-│   ├── fullRTLSchematic.png
-│   ├── RTLSchematic.png
-│   └── utilizationReport.png
-└── README.md
-```
+1. [**RTL Shift-and-Add Multiplier**](https://github.com/vviszard/verilog_codes_vis/tree/main/shift_add_mul) — Basic unsigned multiplication
+   using shift and add at the RTL level, no FSM.
+
+2. [**Repeated Addition Multiplier**](https://github.com/vviszard/repeatedAdditionMultiplier) — Introduced the Control Path &
+   Data Path partitioning model with a 5-state FSM. Unsigned only.
+
+3. [**Booth's Multiplier (this project)**](https://github.com/vviszard/boothMultiplicationAlgorithm) — Extends the CP/DP model
+   to handle signed multiplication using Booth's algorithm, with
+   a more complex FSM and arithmetic right shifting.
