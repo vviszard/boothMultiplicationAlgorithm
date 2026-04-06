@@ -20,13 +20,13 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module DFLPOP(d,q,clk,clr);
-    input d,clk,clr;
+module DFLPOP (d,q,clk,clr,en);
+    input d,clk,clr,en;
     output reg q;
     
     always @(posedge clk)
         if (clr)
             q <= 0;
-        else
+        else if (en)
             q <= d;
 endmodule

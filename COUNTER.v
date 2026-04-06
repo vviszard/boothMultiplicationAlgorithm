@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module COUNTER(dOut,dec,ld,clk);
+module COUNTER (dOut,dec,ld,clk);
     input dec,clk,ld;
     output reg [4:0] dOut;
     always @(posedge clk)

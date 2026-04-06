@@ -19,14 +19,13 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-
 module CONTROLPATH (ldA, clrA, sftA, ldQ, clrQ, sftQ, ldM, clrff, addSub, start, decr, ldCnt, done, clk, q0, qm1,eqz);
     input clk, q0, qm1, start,eqz;
     output reg ldA, clrA, sftA, ldQ, clrQ, sftQ, ldM, clrff, addSub, decr, ldCnt, done;
     
     reg [2:0] state;
     
-   parameter S0 = 3'b000, S1 = 3'b001, S2 = 3'b010, S3 = 3'b011, S4 = 3'b100, S5 = 3'b101, S6 = 3'b110;
+    parameter S0 = 3'b000, S1 = 3'b001, S2 = 3'b010, S3 = 3'b011, S4 = 3'b100, S5 = 3'b101, S6 = 3'b110, S7 = 3'b111;
    
    always @(posedge clk)
        begin
@@ -34,15 +33,15 @@ module CONTROLPATH (ldA, clrA, sftA, ldQ, clrQ, sftQ, ldM, clrff, addSub, start,
                S0: if (start)
                        state <= S1;
                S1: state <= S2;
-               S2: if ({q0,qm1} == 2'b01)
-                       state <= S3;
-                   else if ({q0,qm1} == 2'b10)
-                       state <= S4;
-                   else
-                       state <= S5;
+               S2: state <= S7;
                S3: state <= S5;
                S4: state <= S5;
-               S5: if (eqz)
+               S5: state <= S7;
+               S6: if (start)
+                       state <= S1;
+                   else 
+                       state <= S6;
+               S7: if (eqz)
                        state <= S6;
                    else if ({q0,qm1} == 2'b01)
                        state <= S3;
@@ -50,10 +49,6 @@ module CONTROLPATH (ldA, clrA, sftA, ldQ, clrQ, sftQ, ldM, clrff, addSub, start,
                        state <= S4;
                    else
                        state <= S5;
-               S6: if (start)
-                       state <= S0;
-                   else 
-                       state <= S6;
                        
                default: state <= S0;
            endcase
@@ -61,17 +56,22 @@ module CONTROLPATH (ldA, clrA, sftA, ldQ, clrQ, sftQ, ldM, clrff, addSub, start,
        
    always @(state)
        begin
+           done = 0;
+           clrA = 0;
+           ldA = 0;
+           sftA = 0;
+           clrQ = 0;
+           ldQ = 0;
+           sftQ = 0;
+           ldM = 0;
+           clrff = 0;
+           addSub = 0;
+           decr = 0;
+           ldCnt = 0;
+           
            case (state)
                S0: begin
-                       done = 1'b0;
-                       clrA = 0;
-                       ldA = 0;
-                       sftA = 0;
-                       clrQ = 0;
-                       ldQ = 0;
-                       sftQ = 0;
-                       ldM = 0;
-                       clrff = 0;
+                       done = 0;
                    end
                S1: begin
                        clrA = 1;
@@ -80,50 +80,22 @@ module CONTROLPATH (ldA, clrA, sftA, ldQ, clrQ, sftQ, ldM, clrff, addSub, start,
                        ldM = 1;
                    end
                S2: begin
-                       clrA = 0;
-                       clrff = 0;
-                       ldCnt = 0;
-                       ldM = 0;
                        ldQ = 1;
                    end
                S3: begin
                        ldA = 1;
                        addSub = 1;
-                       ldQ = 0;
-                       sftA = 0;
-                       sftQ = 0;
-                       decr = 0;
                    end
                S4: begin
                        ldA = 1;
                        addSub = 0;
-                       ldQ = 0;
-                       sftA = 0;
-                       sftQ = 0;
-                       decr = 0;
                    end
                S5: begin
                        sftA = 1;
                        sftQ = 1;
-                       ldA = 0;
                        decr = 1;
                    end
-               S6: done = 1'b1;
-               default: begin
-                       clrA = 0;
-                       ldA = 0;
-                       sftA = 0;
-                       clrQ = 0;
-                       ldQ = 0;
-                       sftQ = 0;
-                       ldM = 0;
-                       clrff = 0;
-                       addSub = 0;
-                       decr = 0;
-                       ldCnt = 0;
-                       done = 1'b0; 
-                   end
+               S6: done = 1;
            endcase
        end 
-    
 endmodule

@@ -36,39 +36,39 @@ module testBooth();
             start = 0;
             dIn = 0;
             
-            #20;
+            #100;
             
             //testcase 1: 10 * 5
             
             $display("Multiplying 10 with 5 --- ");
             dIn = 16'd10;
+            @(negedge clk);
             start = 1;
-            #10 start = 0;
+            @(negedge clk);
+            start = 0;
+            @(negedge clk);
+            dIn = 16'd5;
             
-            #15 dIn = 16'd5;
+            wait(done); 
             
-            wait(done);
+            $display("Result: %d | Expected: 50", $signed(product));
             
-            #10;
-            
-            $display("Result: %d | Expected: 50", product);
-            
-            #50;
+            #100;
             
             //testcase 2: -7 * 3
             
             $display("Multiplying -7 with 3 --- ");
             dIn = -16'd7;
+            @(negedge clk);
             start = 1;
-            #10 start = 0;
+            @(negedge clk);
+            start = 0;
+            @(negedge clk);
+            dIn = 16'd3;
             
-            #15 dIn = 16'd3;
+            wait(done); 
             
-            wait(done);
-            
-            #10;
-            
-            $display("Result: %d | Expected: -21", product);
+            $display("Result: %d | Expected: -21", $signed(product));
             
             #100;
             
