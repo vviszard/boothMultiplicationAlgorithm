@@ -1,6 +1,6 @@
 # 16-Bit Booth's Multiplier
 
-A digital multiplier implemented in Verilog, following the Data Path and Control Path architectural partitioning. Developed and verified using Xilinx Vivado on a Lenovo desktop running Windows.
+A digital multiplier implemented in Verilog, following the Data Path and Control Path architectural partitioning. Developed and verified using Xilinx Vivado on AlmaLinux OS.
 
 ## Project Overview
 
