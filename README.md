@@ -13,8 +13,6 @@ This design uses **Booth's Algorithm** — a signed binary multiplication techni
 - **FSM Control:** An 8-state controller manages the timing, data flow, and arithmetic decisions.
 - **32-bit Output:** The final product is a full-precision 32-bit signed result.
 
----
-
 ## Architecture
 
 The system is divided into two primary sections:
@@ -44,8 +42,6 @@ A Finite State Machine that issues control signals based on the current state:
 | S4 | Subtract | AR ← AR − MR |
 | S5 | Shift | Arithmetic right shift of `{AR, QR, qm1}`, decrements counter |
 | S6 | Done | Asserts `done`, holds final result |
-
----
 
 ## Theory of Operation
 
@@ -81,8 +77,6 @@ The two operands are supplied on the shared `dIn` bus in two successive clock cy
 
 The 32-bit product is formed by concatenating `{AR, QR}` and is held stable in S6 until a new `start` pulse is issued.
 
----
-
 ## Simulation & Reports
 
 **Simulation Result**
@@ -105,7 +99,6 @@ The 32-bit product is formed by concatenating `{AR, QR}` and is held stable in S
 
 *Resource mapping on the FPGA, showing LUT and Flip-Flop count.*
 
----
 ## Related Work
 
 This project is the third in a series of multiplier implementations,
