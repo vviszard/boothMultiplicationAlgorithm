@@ -113,3 +113,6 @@ each building on the previous:
 3. [**Booth's Multiplier (this project)**](https://github.com/vviszard/boothMultiplicationAlgorithm) — Extends the CP/DP model
    to handle signed multiplication using Booth's algorithm, with
    a more complex FSM and arithmetic right shifting.
+4. [**Radix-4 Modified Booth Multiplier**](https://github.com/vviszard/radix-4-booth-multiplier) — Doubles the throughput of Radix-2
+   by examining 3-bit groups, halving iterations to 8, at the
+   cost of additional hardware for 2M precomputation and a wider FSM.
